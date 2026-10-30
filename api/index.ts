@@ -1,5 +1,9 @@
-// Import the compiled or source Express app
-import app from '../src/index'; 
+import Fastify from 'fastify';
 
-// Export the app as a Vercel serverless function module
-export default app;
+// Import or initialize your Fastify application instance
+import app from '../src/main'; // Adjust if your main instance export path differs
+
+export default async (req: any, res: any) => {
+  await app.ready();
+  app.server.emit('request', req, res);
+};
